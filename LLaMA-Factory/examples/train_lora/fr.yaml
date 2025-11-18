@@ -1,0 +1,54 @@
+### model
+# model_name_or_path: /home/rongfeng3-c/LLM/Qwen/Qwen3-8B
+model_name_or_path: /home/rongfeng3-c/LLM/Meta-Llama-3.1-8B-Instruct
+trust_remote_code: true
+
+### method
+stage: sft
+do_train: true
+finetuning_type: lora
+lora_rank: 128
+lora_alpha: 512
+lora_dropout: 0.0
+lora_target: all
+deepspeed: examples/deepspeed/ds_z2_config.json
+
+### dataset
+dataset: piqa_train
+template: llama3
+cutoff_len: 2048
+max_samples: 1000
+overwrite_cache: true
+preprocessing_num_workers: 16
+dataloader_num_workers: 4
+
+### output
+output_dir: /home/rongfeng3-c/LLM/lora_llm_iclr/iclr_qa_tr/Llama-8B-Instruct_rongfeng
+logging_steps: 10
+save_steps: 500
+plot_loss: true
+overwrite_output_dir: true
+save_only_model: true
+report_to: wandb  # choices: [none, wandb, tensorboard, swanlab, mlflow]
+
+### train
+per_device_train_batch_size: 8
+gradient_accumulation_steps: 1
+learning_rate: 1.0e-5
+num_train_epochs: 1.0
+lr_scheduler_type: cosine
+warmup_ratio: 0.1
+bf16: true
+ddp_timeout: 180000000
+resume_from_checkpoint: null
+
+### 
+do_predict: true
+predict_with_generate: true
+eval_dataset: piqa_test
+per_device_eval_batch_size: 1
+max_new_tokens: 512
+temperature: 0.7
+do_sample: false
+
+# llamafactory-cli train examples/train_lora/fr.yaml

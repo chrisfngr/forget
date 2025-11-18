@@ -1,0 +1,13 @@
+### Note: DO NOT use quantized model or quantization_bit when merging lora adapters
+
+### model
+model_name_or_path: /home/rongfeng3-c/LLM/Llama-3.2-3B-Instruct
+adapter_name_or_path: /home/rongfeng3-c/LLM/lora_llm_iclr/apple_sllm/saved_ckpts_llamafactory/email-formation-keypoints__Llama3-3B__r128_a256_bs16_acc2_lr3e-5__llmf/checkpoint-150
+template: llama3
+trust_remote_code: true
+
+### export
+export_dir: output/llama3_3b_lora_sft
+export_size: 5
+export_device: cpu  # choices: [cpu, auto]
+export_legacy_format: false

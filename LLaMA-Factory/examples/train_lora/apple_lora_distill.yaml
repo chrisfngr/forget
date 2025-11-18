@@ -1,0 +1,55 @@
+
+### model
+model_name_or_path: /home/rongfeng3-c/LLM/Llama-3.2-3B-Instruct
+trust_remote_code: true
+
+### method
+stage: sft
+do_train: true
+do_eval: true
+finetuning_type: lora
+deepspeed: /home/rongfeng3-c/LLM/LLaMA-Factory/examples/deepspeed/ds_z2_config.json
+
+### lora parameters
+lora_rank: 128
+lora_alpha: 256
+lora_dropout: 0.0
+lora_target: all
+additional_target: null
+
+### dataset
+dataset: email-function-compose
+dataset_dir: ./data
+template: llama3
+cutoff_len: 2048
+max_samples: 10000000000000
+overwrite_cache: true
+preprocessing_num_workers: 16
+dataloader_num_workers: 4
+
+### output
+output_dir: /home/rongfeng3-c/LLM/lora_llm_iclr/apple_sllm/saved_ckpts_distill/email-function-compose_llmf/Llama-3.2-3B-Instruct__r128_a256_bs16__llmf_test
+logging_steps: 10
+save_strategy: epoch
+plot_loss: true
+overwrite_output_dir: true
+save_only_model: false
+report_to: wandb
+run_name: Llama3-3B-compose-r128-bs16-lr3e5_distill
+
+### train
+per_device_train_batch_size: 8
+gradient_accumulation_steps: 1
+learning_rate: 1e-5
+num_train_epochs: 3.0
+lr_scheduler_type: cosine
+warmup_ratio: 0.1
+bf16: true
+ddp_timeout: 18000000
+torch_compile: false
+resume_from_checkpoint: null
+
+# ## eval
+# eval_dataset: email-function-compose_val
+# per_device_eval_batch_size: 1
+# eval_strategy: epoch

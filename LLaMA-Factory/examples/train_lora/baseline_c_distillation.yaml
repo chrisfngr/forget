@@ -1,0 +1,54 @@
+### model
+model_name_or_path: /home/rongfeng3-c/LLM/lora_llm_iclr/apple_sllm/saved_ckpts_iclr  # SFT 后的 base model checkpoint
+trust_remote_code: true
+
+### method
+stage: sft
+do_train: true
+do_eval: true
+finetuning_type: lora
+deepspeed: examples/deepspeed/ds_z2_config.json
+
+### lora parameters
+lora_rank: 128
+lora_alpha: 256
+lora_dropout: 0.0
+lora_target: all
+additional_target: null
+
+### dataset
+dataset: baseline_c_distillation_data  # 将在运行时被覆盖
+dataset_dir: /home/rongfeng3-c/LLM/lora_llm_iclr/apple_sllm/data
+template: llama3  # 将在运行时根据模型类型调整
+cutoff_len: 2048
+max_samples: 10000000000000
+overwrite_cache: true
+preprocessing_num_workers: 16
+dataloader_num_workers: 4
+
+### output
+output_dir: saves/baseline_c/distilled_lora_checkpoints  # 将在运行时被覆盖
+logging_steps: 10
+save_strategy: epoch
+plot_loss: true
+overwrite_output_dir: true
+save_only_model: true
+report_to: wandb
+run_name: baseline-c-distillation  # 将在运行时被覆盖
+
+### train
+per_device_train_batch_size: 8
+gradient_accumulation_steps: 1
+learning_rate: 3e-5
+num_train_epochs: 3.0
+lr_scheduler_type: cosine
+warmup_ratio: 0.1
+bf16: true
+ddp_timeout: 18000000
+torch_compile: false
+resume_from_checkpoint: null
+
+### eval
+eval_dataset: baseline_c_distillation_data_val  # 将在运行时被覆盖
+per_device_eval_batch_size: 1
+eval_strategy: epoch

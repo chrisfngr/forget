@@ -1,0 +1,55 @@
+### model
+model_name_or_path: /home/rongfeng3-c/LLM/Meta-Llama-3.1-8B-Instruct
+trust_remote_code: true
+
+### method
+stage: sft
+do_train: true
+do_eval: true
+finetuning_type: lora
+lora_rank: 128
+lora_alpha: 256
+lora_dropout: 0.0
+lora_target: all
+deepspeed: /home/rongfeng3-c/LLM/LLaMA-Factory/examples/deepspeed/ds_z2_config.json
+
+### dataset
+dataset: wmt16-cs-en_train
+template: llama3
+cutoff_len: 2048
+max_samples: 10000000000000
+overwrite_cache: true
+preprocessing_num_workers: 16
+dataloader_num_workers: 4
+
+### output
+output_dir: saves/llama3-8b/lora/sft
+logging_steps: 10
+save_steps: 20
+plot_loss: true
+overwrite_output_dir: true
+save_only_model: true
+report_to: wandb # choices: [none, wandb, tensorboard, swanlab, mlflow]
+
+### train
+per_device_train_batch_size: 8
+gradient_accumulation_steps: 1
+learning_rate: 1.0e-5
+num_train_epochs: 1.0
+lr_scheduler_type: cosine
+warmup_ratio: 0.1
+bf16: true
+ddp_timeout: 180000000
+resume_from_checkpoint: null
+
+
+## eval
+# eval_dataset: wmt16-cs-en_validation
+# per_device_eval_batch_size: 1
+# eval_strategy: epoch
+### eval
+# eval_dataset: alpaca_en_demo
+# val_size: 0.1
+# per_device_eval_batch_size: 1
+# eval_strategy: steps
+# eval_steps: 500

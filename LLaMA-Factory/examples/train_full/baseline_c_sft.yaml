@@ -1,0 +1,45 @@
+### model
+model_name_or_path: /home/rongfeng3-c/LLM/Qwen/Qwen3-8B # 将在运行时被覆盖
+trust_remote_code: true
+
+### method
+stage: sft
+do_train: true
+finetuning_type: full
+deepspeed: examples/deepspeed/ds_z3_config.json
+
+### dataset
+dataset: qwen_wmt16-cs-en-qwen3-8b_predict_plan_c
+template: qwen  # 将在运行时根据模型类型调整
+cutoff_len: 2048
+max_samples: 10000000000000
+overwrite_cache: true
+preprocessing_num_workers: 16
+dataloader_num_workers: 4
+
+### output
+output_dir: saves/baseline_c/sft_checkpoints  
+logging_steps: 10
+save_strategy: epoch
+plot_loss: true
+overwrite_output_dir: true
+save_only_model: true
+report_to: wandb
+run_name: baseline-c-sft  
+
+### train
+per_device_train_batch_size: 8
+gradient_accumulation_steps: 1
+learning_rate: 1.0e-5
+num_train_epochs: 1
+lr_scheduler_type: cosine
+warmup_ratio: 0.1
+bf16: true
+ddp_timeout: 180000000
+resume_from_checkpoint: null
+torch_compile: false
+
+### eval
+# eval_dataset: baseline_c_translation_data_val  # 将在运行时被覆盖
+# per_device_eval_batch_size: 1
+# eval_strategy: epoch

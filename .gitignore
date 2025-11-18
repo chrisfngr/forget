@@ -1,0 +1,69 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# SLURM logs
+SLURM_Logs/*.out
+SLURM_Logs/*.err
+
+# Results and data (excluded due to large size)
+results/
+data/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Model files and checkpoints (usually too large)
+*.bin
+*.safetensors
+*.pt
+*.pth
+*.ckpt
+
+# Cache
+.cache/
+*.cache
+
+# LLaMA-Factory specific - exclude large model files and checkpoints
+LLaMA-Factory/saved_ckpts*/
+LLaMA-Factory/saves/
+LLaMA-Factory/wandb/
+LLaMA-Factory/*.safetensors
+LLaMA-Factory/*.bin
+LLaMA-Factory/*.pt
+LLaMA-Factory/*.pth
+LLaMA-Factory/*.ckpt
+LLaMA-Factory/generated_predictions.jsonl
+
